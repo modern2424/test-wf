@@ -1,0 +1,37 @@
+name: Check copied values
+
+on:
+  workflow_dispatch
+  
+jobs:
+  test_values:
+    runs-on: ubuntu-latest
+    steps: 
+    - name: Check out the repository 
+      uses: actions/checkout@v2 
+      with: 
+        fetch-depth: 0
+      
+    - name: Verify values - postman and script 
+      id: verify values of postman and script
+      run: | 
+        if [[ "$s1" == "$s2" ]]; then
+        echo "Postman and Script same secrets!"
+        else
+        echo "Postman and Manual Different values!"
+        fi
+      env:
+        s1: ${{ secrets.NEW_SECRET_POSTMAN }}
+        s2: ${{ secrets.SECRET_FROM_SCRIPT }}
+
+    - name: Verify values - postman and manual
+      id: verify values of postman and manual
+      run: | 
+        if [[ "$s1" == "$s2" ]]; then
+        echo "Postman and Manual same secrets!"
+        else
+        echo "Postmand and Manual Different values!"
+        fi
+      env:
+        s1: ${{ secrets.NEW_SECRET_POSTMAN }}
+        s2: ${{ secrets.TEST_REPO_SECRET }}
