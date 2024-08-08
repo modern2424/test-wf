@@ -13,7 +13,7 @@ jobs:
         fetch-depth: 0
       
     - name: Verify values - postman and script 
-      id: verify values of postman and script
+      id: verify_values_of_postman_and_script
       run: | 
         if [[ "$s1" == "$s2" ]]; then
         echo "Postman and Script same secrets!"
@@ -25,7 +25,7 @@ jobs:
         s2: ${{ secrets.SECRET_FROM_SCRIPT }}
 
     - name: Verify values - postman and manual
-      id: verify values of postman and manual
+      id: verify_values_of_postman_and_manual
       run: | 
         if [[ "$s1" == "$s2" ]]; then
         echo "Postman and Manual same secrets!"
