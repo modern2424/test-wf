@@ -1,0 +1,49 @@
+name: Create App
+
+on:
+  workflow_dispatch:
+    inputs:
+      authorization-code:
+        type: string
+        
+  
+jobs:
+  test_values:
+    runs-on: ubuntu-latest
+    steps: 
+    - name: Check out the repository 
+      uses: actions/checkout@v2 
+      with: 
+        fetch-depth: 0
+
+    - name: Run the authorization code to create the app
+      # need to call the gh api to create app from manifest, and then store the response in a variable.
+      # then from variable, extract app_slug which will be app name. app id. 
+      # also extract pem key and save it as a secret, this part needs encrypting it with org's public key.
+      # so need an action to encrypt a secret using org's public key.
+
+      
+      
+    - name: Verify values - postman and script 
+      id: verify_values_of_postman_and_script
+      run: | 
+        if [[ "$s1" == "$s2" ]]; then
+        echo "Postman and Script same secrets!"
+        else
+        echo "Postman and Manual Different values!"
+        fi
+      env:
+        s1: ${{ secrets.NEW_SECRET_POSTMAN }}
+        s2: ${{ secrets.SECRET_FROM_SCRIPT }}
+
+    - name: Verify values - postman and manual
+      id: verify_values_of_postman_and_manual
+      run: | 
+        if [[ "$s1" == "$s2" ]]; then
+        echo "Postman and Manual same secrets!"
+        else
+        echo "Postmand and Manual Different values!"
+        fi
+      env:
+        s1: ${{ secrets.NEW_SECRET_POSTMAN }}
+        s2: ${{ secrets.TEST_REPO_SECRET }}
