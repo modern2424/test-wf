@@ -7,13 +7,13 @@ inputs:
     required: true
   secret_value:
     description: 'The value of the secret'
-    required: true
+    required: false
   org_name:
     description: 'The name of the organization of repository'
     required: true
   repo_name:
     description: 'The name of the repository'
-    required: true
+    required: false
   AUTH_TOKEN:
     description: 'Token to create secret'
     required: true
@@ -42,3 +42,15 @@ runs:
 
     - name: Inputs Context
       run: echo '${{ toJSON(inputs) }}'
+
+    - name: Show inputs if available
+      run: |
+        echo "no specifying inputs in env for run step"
+        echo "inputs secret name: ${inputs.secret_name}"
+        echo "inputs org_name: ${inputs.org_name}"
+        echo "inputs auth token: ${inputs.AUTH_TOKEN}"
+
+    - name: Show inputs if available
+      run: |
+        echo "secret context Test_Repo_Secret value: ${secrets.TEST_REPO_SECRET}"
+        echo "github context repository value: ${github.repository}"
