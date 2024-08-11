@@ -1,0 +1,16 @@
+name: Actions Context
+
+on:
+  workflow_dispatch
+
+jobs:  
+  Check-Action-Wf:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check Actions Context
+      uses: ./.github/actions/check-actions-context
+      with:
+        secret_name: "Test_repo_secret_name_provided_in_with"
+        org_name: "test_org_name_in_with_of_workflow"
+        AUTH_TOKEN: ${{ secrets.ORG_TEMP_TOKEN }}
