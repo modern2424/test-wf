@@ -31,7 +31,7 @@ jobs:
 
         echo "https://api.github.com/app-manifests/$AUTH_CODE/conversions"
         
-        RESPONSE_APP_CREATED=$(curl -s -H "Authorization: Bearer $APP_INSTALL_TOKEN" \
+        RESPONSE_APP_CREATED=$(curl -s -X POST -H "Authorization: Bearer $APP_INSTALL_TOKEN" \
         -H "Accept: application/vnd.github+json" \
         https://api.github.com/app-manifests/$AUTH_CODE/conversions)
 
