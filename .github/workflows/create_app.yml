@@ -52,8 +52,8 @@ jobs:
         echo "::set-output name=org_name::$ORG_NAME"
         
       env:
-        APP_INSTALL_TOKEN: $${{ secrets.ORG_TEMP_TOKEN }}
-        AUTH_CODE: $${{ inputs.authorization_code }}
+        APP_INSTALL_TOKEN: ${{ secrets.ORG_TEMP_TOKEN }}
+        AUTH_CODE: ${{ inputs.authorization_code }}
 
     - name: Construct Variable and Secret Names
       id: name-vars
