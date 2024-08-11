@@ -70,6 +70,11 @@ jobs:
     runs-on: ubuntu-latest
     needs: create-app
     steps:
+      - name: Check out the repository 
+        uses: actions/checkout@v2 
+        with: 
+          fetch-depth: 0
+        
       - name: Create App ID variable
         uses: ./.github/actions/create-variable
         with:
@@ -86,6 +91,11 @@ jobs:
     runs-on: ubuntu-latest
     needs: create-app
     steps:
+      - name: Check out the repository 
+        uses: actions/checkout@v2 
+        with: 
+          fetch-depth: 0
+          
       - name: Create Repository Secret
         uses: ./.github/actions/create-secret
         with:
