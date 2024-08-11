@@ -14,10 +14,10 @@ jobs:
       run: echo '${{ toJSON(job) }}'
 
     - name: Github Context
-      run: echo '${{ toJSON(step) }}'
+      run: echo '${{ toJSON(steps) }}'
 
     - name: Github Context
       run: echo '${{ toJSON(runner) }}'
 
     - name: Github Context
-      run: echo '${{ toJSON(strategy) }}'
+      run: echo '${{ toJSON(ssecrets) }}'
