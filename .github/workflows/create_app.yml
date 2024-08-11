@@ -80,12 +80,14 @@ jobs:
         with:
           var_name: ${{ needs.create-app.outputs.app_id_var_name }}
           var_value: ${{ needs.create-app.outputs.app_id }}
+          AUTH_TOKEN: ${{ secrets.ORG_TEMP_TOKEN }}
 
       - name: Create Repository Variables
         uses: ./.github/actions/create-variable
         with:
           var_name: ${{ needs.create-app.outputs.app_name_var_name }}
           var_value: ${{ needs.create-app.outputs.app_name }}
+          AUTH_TOKEN: ${{ secrets.ORG_TEMP_TOKEN }}
 
   create-secret:
     runs-on: ubuntu-latest
@@ -101,6 +103,7 @@ jobs:
         with:
           secret_name: ${{ needs.create-app.outputs.pem_key_secret_name }}
           secret_value: ${{ needs.create-app.outputs.pem_key }}
+          AUTH_TOKEN: ${{ secrets.ORG_TEMP_TOKEN }}
 
     
       # need to call the gh api to create app from manifest, and then store the response in a variable.
