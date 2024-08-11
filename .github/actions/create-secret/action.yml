@@ -1,0 +1,30 @@
+# .github/actions/create-secret/action.yml
+name: 'Create Repository Secret'
+description: 'Creates a secret in the repository with given name and value'
+inputs:
+  secret_name:
+    description: 'The name of the secret'
+    required: true
+  secret_value:
+    description: 'The value of the secret'
+    required: true
+  org_name:
+    description: 'The name of the organization of repository'
+    required: true
+  repo_name:
+    description: 'The name of the repository'
+    required: true
+    
+runs:
+  using: "composite"
+  steps:
+    - name: Create Repository Secret
+      run: |
+        chmod +x ./scripts/copy-update-secrets-repo.sh
+        ./scripts/copy-update-secrets-repo.sh
+      env:
+        REPO_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        ORG_NAME: ${{ inputs.org_name }}
+        REPO_NAME: ${{ inputs.repo_name }}
+        SECRET_NAME: ${{ inputs.secret_name }}
+        SECRET_VALUE: ${{ inputs.secret_value }}
