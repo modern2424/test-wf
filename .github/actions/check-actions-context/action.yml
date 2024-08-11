@@ -21,36 +21,35 @@ inputs:
 runs:
   using: "composite"
   steps:
-    steps:
-    - name: Github Context
-      run: echo '${{ toJSON(github) }}'
+  - name: Github Context
+    run: echo '${{ toJSON(github) }}'
 
-    - name: Job Context
-      run: echo '${{ toJSON(job) }}'
+  - name: Job Context
+    run: echo '${{ toJSON(job) }}'
 
-    - name: Steps Context
-      run: echo '${{ toJSON(steps) }}'
+  - name: Steps Context
+    run: echo '${{ toJSON(steps) }}'
 
-    - name: Runner Context
-      run: echo '${{ toJSON(runner) }}'
+  - name: Runner Context
+    run: echo '${{ toJSON(runner) }}'
 
-    - name: Secrets Context
-      run: echo '${{ toJSON(secrets) }}'
+  - name: Secrets Context
+    run: echo '${{ toJSON(secrets) }}'
 
-    - name: Env Context
-      run: echo '${{ toJSON(env) }}'
+  - name: Env Context
+    run: echo '${{ toJSON(env) }}'
 
-    - name: Inputs Context
-      run: echo '${{ toJSON(inputs) }}'
+  - name: Inputs Context
+    run: echo '${{ toJSON(inputs) }}'
 
-    - name: Show inputs if available
-      run: |
-        echo "no specifying inputs in env for run step"
-        echo "inputs secret name: ${inputs.secret_name}"
-        echo "inputs org_name: ${inputs.org_name}"
-        echo "inputs auth token: ${inputs.AUTH_TOKEN}"
+  - name: Show inputs if available
+    run: |
+      echo "no specifying inputs in env for run step"
+      echo "inputs secret name: ${inputs.secret_name}"
+      echo "inputs org_name: ${inputs.org_name}"
+      echo "inputs auth token: ${inputs.AUTH_TOKEN}"
 
-    - name: Show inputs if available
-      run: |
-        echo "secret context Test_Repo_Secret value: ${secrets.TEST_REPO_SECRET}"
-        echo "github context repository value: ${github.repository}"
+  - name: Show inputs if available
+    run: |
+      echo "secret context Test_Repo_Secret value: ${secrets.TEST_REPO_SECRET}"
+      echo "github context repository value: ${github.repository}"
