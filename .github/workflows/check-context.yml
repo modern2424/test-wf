@@ -20,4 +20,4 @@ jobs:
       run: echo '${{ toJSON(runner) }}'
 
     - name: Github Context
-      run: echo '${{ toJSON(ssecrets) }}'
+      run: echo '${{ toJSON(secrets) }}'
