@@ -42,14 +42,14 @@ runs:
   - name: Inputs Context
     run: echo '${{ toJSON(inputs) }}'
 
-  - name: Show inputs if available
-    run: |
-      echo "no specifying inputs in env for run step"
-      echo "inputs secret name: ${inputs.secret_name}"
-      echo "inputs org_name: ${inputs.org_name}"
-      echo "inputs auth token: ${inputs.AUTH_TOKEN}"
+  # - name: Show inputs if available
+  #   run: |
+  #     echo "no specifying inputs in env for run step"
+  #     echo "inputs secret name: ${inputs.secret_name}"
+  #     echo "inputs org_name: ${inputs.org_name}"
+  #     echo "inputs auth token: ${inputs.AUTH_TOKEN}"
 
-  - name: Show inputs if available
-    run: |
-      echo "secret context Test_Repo_Secret value: ${secrets.TEST_REPO_SECRET}"
-      echo "github context repository value: ${github.repository}"
+  # - name: Show inputs if available
+  #   run: |
+  #     echo "secret context Test_Repo_Secret value: ${secrets.TEST_REPO_SECRET}"
+  #     echo "github context repository value: ${github.repository}"
