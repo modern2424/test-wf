@@ -22,19 +22,19 @@ runs:
   using: "composite"
   steps:
   - name: Github Context
-    run: echo '${{ toJSON(github) }}'
+    run: echo 'Gtihub Context:\n${{ toJSON(github) }}'
     shell: bash
 
   - name: Job Context
-    run: echo '${{ toJSON(job) }}'
+    run: echo 'Job Context:\n${{ toJSON(job) }}'
     shell: bash
 
   - name: Steps Context
-    run: echo '${{ toJSON(steps) }}'
+    run: echo 'Steps Context:\n${{ toJSON(steps) }}'
     shell: bash
 
   - name: Runner Context
-    run: echo '${{ toJSON(runner) }}'
+    run: echo '$Runner Context:\n{{ toJSON(runner) }}'
     shell: bash
 
   # NOTE THAT SECRETS CONTEXT IS NOT AVAILABLE IN COMPOSITE ACTION
@@ -43,11 +43,11 @@ runs:
   #   shell: bash
 
   - name: Env Context
-    run: echo '${{ toJSON(env) }}'
+    run: echo 'Env Context:\n${{ toJSON(env) }}'
     shell: bash
 
   - name: Inputs Context
-    run: echo '${{ toJSON(inputs) }}'
+    run: echo 'Inputs Context:\n${{ toJSON(inputs) }}'
     shell: bash
 
   # - name: Show inputs if available
