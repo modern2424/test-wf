@@ -80,6 +80,7 @@ jobs:
         with:
           var_name: ${{ needs.create-app.outputs.app_id_var_name }}
           var_value: ${{ needs.create-app.outputs.app_id }}
+          repo_name: ${{ github.repository }}
           AUTH_TOKEN: ${{ secrets.ORG_TEMP_TOKEN }}
 
       - name: Create Repository Variables
@@ -87,6 +88,7 @@ jobs:
         with:
           var_name: ${{ needs.create-app.outputs.app_name_var_name }}
           var_value: ${{ needs.create-app.outputs.app_name }}
+          repo_name: ${{ github.repository }}
           AUTH_TOKEN: ${{ secrets.ORG_TEMP_TOKEN }}
 
   create-secret:
@@ -103,6 +105,8 @@ jobs:
         with:
           secret_name: ${{ needs.create-app.outputs.pem_key_secret_name }}
           secret_value: ${{ needs.create-app.outputs.pem_key }}
+          org_name: ${{ needs.create-app.outputs.org_name }}
+          repo_name: ${{ github.repository }}
           AUTH_TOKEN: ${{ secrets.ORG_TEMP_TOKEN }}
 
     
