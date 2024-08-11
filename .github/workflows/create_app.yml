@@ -47,7 +47,8 @@ jobs:
         # Mask PEM Key
         echo "::add-mask::$PEM_KEY"
 
-        echo "Verify app creation. App ID: $INSTALLED_APP_ID"
+        echo "Verify app creation. App ID: $APP_ID"
+        echo "---ORG_NAME : $ORG_NAME ---"
         
         echo "::set-output name=app_id::$APP_ID"
         echo "::set-output name=app_name::$APP_NAME"
@@ -61,6 +62,7 @@ jobs:
     - name: Construct Variable and Secret Names
       id: name-vars
       run: |
+        echo "org_name from previous steps now in construct variable: ${{ needs.create.outputs.org_name }}"
         echo "::set-output name=app_id_var_name::${{ needs.create.outputs.org_name }}_APP_ID"
         echo "::set-output name=app_name_var_name::${{ needs.create.outputs.org_name }}_APP_NAME"
         echo "::set-output name=pem_key_secret_name::${{ needs.create.outputs.org_name }}_PEM_KEY"
