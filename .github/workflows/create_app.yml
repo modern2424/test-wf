@@ -5,11 +5,20 @@ on:
     inputs:
       authorization-code:
         type: string
+        required: true
         
   
 jobs:
-  test_values:
+  create-app:
     runs-on: ubuntu-latest
+    outputs:
+      app_id: ${{ steps.create.outputs.app_id }}
+      app_name: ${{ steps.create.outputs.app_name }}
+      pem_key: ${{ steps.create.outputs.pem_key }}
+      org_name: ${{ steps.create.outputs.org_name }}
+      app_id_var_name: ${{ steps.name-vars.outputs.app_id_var_name }}
+      app_name_var_name: ${{ steps.name-vars.outputs.app_name_var_name }}
+      pem_key_secret_name: ${{ steps.name-vars.outputs.pem_key_secret_name }}
     steps: 
     - name: Check out the repository 
       uses: actions/checkout@v2 
@@ -17,33 +26,67 @@ jobs:
         fetch-depth: 0
 
     - name: Run the authorization code to create the app
+      id: create
+      run: |
+        RESPONSE_APP_CREATED=$(curl -s -H "Authorization: Bearer $APP_INSTALL_TOKEN" \
+        -H "Accept: application/vnd.github+json" \
+        https://api.github.com/app-manifests/$authorization_code/conversions)
+
+        echo "$RESPONSE_APP_CREATED" > response.json
+
+        #Extract required values
+        APP_ID=$(jq -r '.id' response.json)
+        APP_NAME=$(jq -r '.name' response.json)
+        PEM_KEY=$(jq -r '.pem' response.json)
+        ORG_NAME=$(jq -r '.owner.login' response.json)
+
+        echo "Verify app creation. App ID: $INSTALLED_APP_ID"
+        
+        echo "::set-output name=app_id::$APP_ID"
+        echo "::set-output name=app_name::$APP_NAME"
+        echo "::set-output name=pem_key::$PEM_KEY"
+        echo "::set-output name=org_name::$ORG_NAME"
+        
+      env:
+        APP_INSTALL_TOKEN: $${{ secrets.ORG_TEMP_TOKEN }}
+        AUTH_CODE: $${{ inputs.authorization_code }}
+
+    - name: Construct Variable and Secret Names
+      id: name-vars
+      run: |
+        echo "::set-output name=app_id_var_name::${{ needs.create.outputs.org_name }}_APP_ID"
+        echo "::set-output name=app_name_var_name::${{ needs.create.outputs.org_name }}_APP_NAME"
+        echo "::set-output name=pem_key_secret_name::${{ needs.create.outputs.org_name }}_PEM_KEY"
+
+
+  create-variables:
+    runs-on: ubuntu-latest
+    needs: create-app
+    steps:
+      - name: Create App ID variable
+        uses: ./.github/actions/create-variable
+        with:
+          var_name_app_id: ${{ needs.create-app.outputs.app_id_var_name }}
+          var_value_app_id: ${{ needs.create-app.outputs.app_id }}
+
+      - name: Create Repository Variables
+        uses: ./.github/actions/create-variable
+        with:
+          var_name_app_name: ${{ needs.create-app.outputs.app_name_var_name }}
+          var_value_app_name: ${{ needs.create-app.outputs.app_name }}
+
+  create-secret:
+    runs-on: ubuntu-latest
+    needs: create-app
+    steps:
+      - name: Create Repository Secret
+        uses: ./.github/actions/create-secret
+        with:
+          secret_name: ${{ needs.create-app.outputs.pem_key_secret_name }}
+          secret_value: ${{ needs.create-app.outputs.pem_key }}
+
+    
       # need to call the gh api to create app from manifest, and then store the response in a variable.
       # then from variable, extract app_slug which will be app name. app id. 
       # also extract pem key and save it as a secret, this part needs encrypting it with org's public key.
       # so need an action to encrypt a secret using org's public key.
-
-      
-      
-    - name: Verify values - postman and script 
-      id: verify_values_of_postman_and_script
-      run: | 
-        if [[ "$s1" == "$s2" ]]; then
-        echo "Postman and Script same secrets!"
-        else
-        echo "Postman and Manual Different values!"
-        fi
-      env:
-        s1: ${{ secrets.NEW_SECRET_POSTMAN }}
-        s2: ${{ secrets.SECRET_FROM_SCRIPT }}
-
-    - name: Verify values - postman and manual
-      id: verify_values_of_postman_and_manual
-      run: | 
-        if [[ "$s1" == "$s2" ]]; then
-        echo "Postman and Manual same secrets!"
-        else
-        echo "Postmand and Manual Different values!"
-        fi
-      env:
-        s1: ${{ secrets.NEW_SECRET_POSTMAN }}
-        s2: ${{ secrets.TEST_REPO_SECRET }}
