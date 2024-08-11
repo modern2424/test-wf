@@ -3,7 +3,7 @@ name: Create App
 on:
   workflow_dispatch:
     inputs:
-      authorization-code:
+      authorization_code:
         type: string
         required: true
         
