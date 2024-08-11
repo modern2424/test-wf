@@ -23,24 +23,31 @@ runs:
   steps:
   - name: Github Context
     run: echo '${{ toJSON(github) }}'
+    shell: bash
 
   - name: Job Context
     run: echo '${{ toJSON(job) }}'
+    shell: bash
 
   - name: Steps Context
     run: echo '${{ toJSON(steps) }}'
+    shell: bash
 
   - name: Runner Context
     run: echo '${{ toJSON(runner) }}'
+    shell: bash
 
   - name: Secrets Context
     run: echo '${{ toJSON(secrets) }}'
+    shell: bash
 
   - name: Env Context
     run: echo '${{ toJSON(env) }}'
+    shell: bash
 
   - name: Inputs Context
     run: echo '${{ toJSON(inputs) }}'
+    shell: bash
 
   # - name: Show inputs if available
   #   run: |
