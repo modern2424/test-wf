@@ -1,14 +1,14 @@
 #!/bin/bash
 
 # Variables (replace with your actual values)
-#GITHUB_TOKEN=""
+#AUTH_TOKEN=""
 #ORG_NAME=""
 #SECRET_NAME=""
 #SECRET_VALUE=""
 
 # Step 1: Get the public key for the organization
 echo "Fetching the public key for the organization..."
-response=$(curl -s -H "Authorization: Bearer $GITHUB_TOKEN" \
+response=$(curl -s -H "Authorization: Bearer $AUTH_TOKEN" \
                 -H "Accept: application/vnd.github+json" \
                 https://api.github.com/orgs/$ORG_NAME/actions/secrets/public-key)
 
@@ -45,7 +45,7 @@ fi
 echo "Secret encrypted."
 # Step 3: Create or update the organization secret
 echo "Creating or updating the organization secret..."
-update_response=$(curl -s -X PUT -H "Authorization: Bearer $GITHUB_TOKEN" \
+update_response=$(curl -s -X PUT -H "Authorization: Bearer $AUTH_TOKEN" \
                      -H "Accept: application/vnd.github+json" \
                      -d "{\"encrypted_value\":\"$encrypted_value\", \"key_id\":\"$key_id\", \"visibility\":\"private\"}" \
                      https://api.github.com/orgs/$ORG_NAME/actions/secrets/$SECRET_NAME)
