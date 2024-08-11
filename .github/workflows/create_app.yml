@@ -40,6 +40,9 @@ jobs:
         PEM_KEY=$(jq -r '.pem' response.json)
         ORG_NAME=$(jq -r '.owner.login' response.json)
 
+        # Mask PEM Key
+        echo "::add-mask::$PEM_KEY"
+
         echo "Verify app creation. App ID: $INSTALLED_APP_ID"
         
         echo "::set-output name=app_id::$APP_ID"
