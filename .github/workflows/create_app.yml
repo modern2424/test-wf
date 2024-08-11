@@ -66,14 +66,14 @@ jobs:
       - name: Create App ID variable
         uses: ./.github/actions/create-variable
         with:
-          var_name_app_id: ${{ needs.create-app.outputs.app_id_var_name }}
-          var_value_app_id: ${{ needs.create-app.outputs.app_id }}
+          var_name: ${{ needs.create-app.outputs.app_id_var_name }}
+          var_value: ${{ needs.create-app.outputs.app_id }}
 
       - name: Create Repository Variables
         uses: ./.github/actions/create-variable
         with:
-          var_name_app_name: ${{ needs.create-app.outputs.app_name_var_name }}
-          var_value_app_name: ${{ needs.create-app.outputs.app_name }}
+          var_name: ${{ needs.create-app.outputs.app_name_var_name }}
+          var_value: ${{ needs.create-app.outputs.app_name }}
 
   create-secret:
     runs-on: ubuntu-latest
