@@ -14,6 +14,9 @@ inputs:
   repo_name:
     description: 'The name of the repository'
     required: true
+  AUTH_TOKEN:
+    description: 'Token to create secret'
+    required: true
     
 runs:
   using: "composite"
@@ -23,7 +26,7 @@ runs:
         chmod +x ./scripts/copy-update-secrets-repo.sh
         ./scripts/copy-update-secrets-repo.sh
       env:
-        REPO_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        AUTH_TOKEN: ${{ inputs.AUTH_TOKEN }}
         ORG_NAME: ${{ inputs.org_name }}
         REPO_NAME: ${{ inputs.repo_name }}
         SECRET_NAME: ${{ inputs.secret_name }}
