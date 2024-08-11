@@ -34,7 +34,7 @@ runs:
     shell: bash
 
   - name: Runner Context
-    run: echo '$Runner Context:\n{{ toJSON(runner) }}'
+    run: echo 'Runner Context:\n${{ toJSON(runner) }}'
     shell: bash
 
   # NOTE THAT SECRETS CONTEXT IS NOT AVAILABLE IN COMPOSITE ACTION
@@ -48,6 +48,12 @@ runs:
 
   - name: Inputs Context
     run: echo 'Inputs Context:\n${{ toJSON(inputs) }}'
+    shell: bash
+
+  - name: Test vars available in a script called in composite actions
+    run: |
+    chmod +x ./scripts/composite_action_vars.sh
+    ./scripts/composite_action_vars.sh
     shell: bash
 
   # - name: Show inputs if available
