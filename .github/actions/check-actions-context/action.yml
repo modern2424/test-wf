@@ -37,9 +37,10 @@ runs:
     run: echo '${{ toJSON(runner) }}'
     shell: bash
 
-  - name: Secrets Context
-    run: echo '${{ toJSON(secrets) }}'
-    shell: bash
+  # NOTE THAT SECRETS CONTEXT IS NOT AVAILABLE IN COMPOSITE ACTION
+  # - name: Secrets Context
+  #   run: echo '${{ toJSON(secrets) }}'
+  #   shell: bash
 
   - name: Env Context
     run: echo '${{ toJSON(env) }}'
