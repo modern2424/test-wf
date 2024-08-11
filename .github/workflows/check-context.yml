@@ -1,0 +1,23 @@
+name: Show Contexts
+
+on:
+  workflow_dispatch
+
+jobs:
+  Show-Listed-Contexts:
+    runs-on: self-hosted
+    steps:
+    - name: Github Context
+      run: echo '${{ toJSON(github) }}'
+
+    - name: Github Context
+      run: echo '${{ toJSON(job) }}'
+
+    - name: Github Context
+      run: echo '${{ toJSON(step) }}'
+
+    - name: Github Context
+      run: echo '${{ toJSON(runner) }}'
+
+    - name: Github Context
+      run: echo '${{ toJSON(strategy) }}'
