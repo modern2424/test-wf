@@ -21,9 +21,7 @@ jobs:
       pem_key_secret_name: ${{ steps.name-vars.outputs.pem_key_secret_name }}
     steps: 
     - name: Check out the repository 
-      uses: actions/checkout@v2 
-      with: 
-        fetch-depth: 0
+      uses: actions/checkout@v2
 
     - name: Run the authorization code to create the app
       id: create
@@ -50,10 +48,10 @@ jobs:
         echo "Verify app creation. App ID: $APP_ID"
         echo "---ORG_NAME : $ORG_NAME ---"
         
-        echo "::set-output name=app_id::$APP_ID"
-        echo "::set-output name=app_name::$APP_NAME"
-        echo "::set-output name=pem_key::$PEM_KEY"
-        echo "::set-output name=org_name::$ORG_NAME"
+        echo "echo app_id=$APP_ID" >> "$GITHUB_OUTPUT"
+        echo "echo app_name=$APP_NAME" >> "$GITHUB_OUTPUT"
+        echo "echo pem_key=$PEM_KEY" >> "$GITHUB_OUTPUT"
+        echo "echo org_name=$ORG_NAME" >> "$GITHUB_OUTPUT"
         
       env:
         APP_INSTALL_TOKEN: ${{ secrets.ORG_TEMP_TOKEN }}
@@ -62,10 +60,10 @@ jobs:
     - name: Construct Variable and Secret Names
       id: name-vars
       run: |
-        echo "org_name from previous steps now in construct variable: ${{ needs.create.outputs.org_name }}"
-        echo "::set-output name=app_id_var_name::${{ needs.create.outputs.org_name }}_APP_ID"
-        echo "::set-output name=app_name_var_name::${{ needs.create.outputs.org_name }}_APP_NAME"
-        echo "::set-output name=pem_key_secret_name::${{ needs.create.outputs.org_name }}_PEM_KEY"
+        echo "org_name from previous steps now in construct variable: ${{ steps.create.outputs.org_name }}"
+        echo "echo app_id_var_name=${{ steps.create.outputs.org_name }}_app_id" >> "$GITHUB_OUTPUT"
+        echo "echo app_name_var_name=${{ steps.create.outputs.org_name }}_app_name" >> "$GITHUB_OUTPUT"
+        echo "echo pem_key_secret_name=${{ steps.create.outputs.org_name }}_pem_key" >> "$GITHUB_OUTPUT"
 
 
   create-variables:
