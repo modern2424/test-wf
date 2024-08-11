@@ -32,6 +32,7 @@ jobs:
         -H "Accept: application/vnd.github+json" \
         https://api.github.com/app-manifests/$authorization_code/conversions)
 
+        echo "$RESPONSE_APP_CREATED"
         echo "$RESPONSE_APP_CREATED" > response.json
 
         #Extract required values
