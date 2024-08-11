@@ -1,0 +1,44 @@
+# .github/actions/create-secret/action.yml
+name: 'Create Repository Secret'
+description: 'Creates a secret in the repository with given name and value'
+inputs:
+  secret_name:
+    description: 'The name of the secret'
+    required: true
+  secret_value:
+    description: 'The value of the secret'
+    required: true
+  org_name:
+    description: 'The name of the organization of repository'
+    required: true
+  repo_name:
+    description: 'The name of the repository'
+    required: true
+  AUTH_TOKEN:
+    description: 'Token to create secret'
+    required: true
+    
+runs:
+  using: "composite"
+  steps:
+    steps:
+    - name: Github Context
+      run: echo '${{ toJSON(github) }}'
+
+    - name: Job Context
+      run: echo '${{ toJSON(job) }}'
+
+    - name: Steps Context
+      run: echo '${{ toJSON(steps) }}'
+
+    - name: Runner Context
+      run: echo '${{ toJSON(runner) }}'
+
+    - name: Secrets Context
+      run: echo '${{ toJSON(secrets) }}'
+
+    - name: Env Context
+      run: echo '${{ toJSON(env) }}'
+
+    - name: Inputs Context
+      run: echo '${{ toJSON(inputs) }}'
