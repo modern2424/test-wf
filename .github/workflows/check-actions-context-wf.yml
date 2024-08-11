@@ -8,6 +8,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Check out the repository 
+      uses: actions/checkout@v2
+          
     - name: Check Actions Context
       uses: ./.github/actions/check-actions-context
       with:
