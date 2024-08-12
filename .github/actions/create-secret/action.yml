@@ -23,6 +23,8 @@ runs:
   steps:
     - name: Create Repository Secret
       run: |
+        python3 -m pip install PyNaCl
+        python3 -m pip install pybase64
         chmod +x ./scripts/copy-update-secrets-repo.sh
         ./scripts/copy-update-secrets-repo.sh
       env:
