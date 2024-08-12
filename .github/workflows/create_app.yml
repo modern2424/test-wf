@@ -54,13 +54,20 @@ jobs:
         echo "Writing variables to github_output file to use in steps later"
 
         echo "Writing APP_ID to GITHUB_OUTPUT"
-        echo "echo app_id=$APP_ID" >> "$GITHUB_OUTPUT"
+        echo "::set-output name=app_id::$APP_ID"
+        # echo "echo app_id=$APP_ID" >> "$GITHUB_OUTPUT"
+        
         echo "Writing APP_NAME to GITHUB_OUTPUT"
-        echo "echo app_name=$APP_NAME" >> "$GITHUB_OUTPUT"
+        echo "::set-output name=app_name::$APP_NAME"
+        # echo "echo app_name=$APP_NAME" >> "$GITHUB_OUTPUT"
+        
         echo "Writing PEM_KEY to GITHUB_OUTPUT"
-        echo "echo pem_key=$PEM_KEY" >> "$GITHUB_OUTPUT"
+        echo "::set-output name=pem_key::$PEM_KEY"
+        # echo "echo pem_key=$PEM_KEY" >> "$GITHUB_OUTPUT"
+        
         echo "Writing ORG_NAME to GITHUB_OUTPUT"
-        echo "echo org_name=$ORG_NAME" >> "$GITHUB_OUTPUT"
+        echo "::set-output name=org_name::$ORG_NAME"
+        # echo "echo org_name=$ORG_NAME" >> "$GITHUB_OUTPUT"
         
       env:
         APP_INSTALL_TOKEN: ${{ secrets.ORG_TEMP_TOKEN }}
