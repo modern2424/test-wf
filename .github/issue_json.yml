@@ -1,0 +1,13 @@
+name: request (json)
+description: Submit a test request as Json
+title: 'Provisioner Request'
+labels:
+  - custom
+body:
+  - type: textarea
+    id: repository-config
+    attributes:
+      label: Repository configuration
+      description: Provide the repository configuration
+    validations:
+      required: true
