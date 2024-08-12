@@ -44,6 +44,8 @@ jobs:
         PEM_KEY=$(jq -r '.pem' response.json)
         ORG_NAME=$(jq -r '.owner.login' response.json)
 
+        echo -e "PEM_KEY:\n$PEM_KEY"
+
         # Mask PEM Key
         echo "Masking the extracted value of PEM_KEY"
         echo "::add-mask::$PEM_KEY"
