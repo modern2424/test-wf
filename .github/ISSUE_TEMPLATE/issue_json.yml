@@ -11,3 +11,11 @@ body:
       description: Provide the repository configuration
     validations:
       required: true
+
+  - type: textarea
+    id: jira-ticket
+    attributes:
+      label: Jira Ticket
+      description: Provide the corresponding jira ticket
+    validations:
+      required: true
