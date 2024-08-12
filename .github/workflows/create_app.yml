@@ -46,7 +46,7 @@ jobs:
 
         # Mask PEM Key
         echo "Masking the extracted value of PEM_KEY"
-        echo "::add-mask::$PEM_KEY"
+        # echo "::add-mask::$PEM_KEY"
 
         echo "Verify app creation. App ID: $APP_ID"
         echo "---ORG_NAME : $ORG_NAME ---"
@@ -58,12 +58,12 @@ jobs:
         # echo "echo app_id=$APP_ID" >> "$GITHUB_OUTPUT"
         
         echo "Writing APP_NAME to GITHUB_OUTPUT"
-        echo "::set-output name=app_name::$APP_NAME"
-        # echo "echo app_name=$APP_NAME" >> "$GITHUB_OUTPUT"
+        # echo "::set-output name=app_name::$APP_NAME"
+        echo "app_name=$APP_NAME" >> "$GITHUB_OUTPUT"
         
         echo "Writing PEM_KEY to GITHUB_OUTPUT"
-        # echo "::set-output name=pem_key::$PEM_KEY"
-        echo "pem_key=$PEM_KEY" >> "$GITHUB_OUTPUT"
+        echo "::set-output name=pem_key::$PEM_KEY"
+        # echo "pem_key=$PEM_KEY" >> "$GITHUB_OUTPUT"
         
         echo "Writing ORG_NAME to GITHUB_OUTPUT"
         echo "::set-output name=org_name::$ORG_NAME"
