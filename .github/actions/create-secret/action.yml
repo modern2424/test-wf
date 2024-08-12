@@ -31,3 +31,4 @@ runs:
         REPO_NAME: ${{ inputs.repo_name }}
         SECRET_NAME: ${{ inputs.secret_name }}
         SECRET_VALUE: ${{ inputs.secret_value }}
+      shell: bash
