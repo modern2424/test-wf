@@ -57,11 +57,11 @@ jobs:
 
         echo "Writing APP_ID to GITHUB_OUTPUT"
         #echo "::set-output name=app_id::$APP_ID"
-        echo "echo app_id=$APP_ID" >> "$GITHUB_OUTPUT"
+        echo "app_id=$APP_ID" >> "$GITHUB_OUTPUT"
         
         echo "Writing APP_NAME to GITHUB_OUTPUT"
-        echo "::set-output name=app_name::$APP_NAME"
-        #echo "app_name=$APP_NAME" >> "$GITHUB_OUTPUT"
+        #echo "::set-output name=app_name::$APP_NAME"
+        echo "app_name=$APP_NAME" >> "$GITHUB_OUTPUT"
         
         echo "Writing PEM_KEY to GITHUB_OUTPUT"
         #echo "::set-output name=pem_key::$PEM_KEY"
@@ -69,7 +69,7 @@ jobs:
         
         echo "Writing ORG_NAME to GITHUB_OUTPUT"
         #echo "::set-output name=org_name::$ORG_NAME"
-        echo "echo org_name=$ORG_NAME" >> "$GITHUB_OUTPUT"
+        echo "org_name=$ORG_NAME" >> "$GITHUB_OUTPUT"
         
       env:
         APP_INSTALL_TOKEN: ${{ secrets.ORG_TEMP_TOKEN }}
@@ -79,9 +79,9 @@ jobs:
       id: name-vars
       run: |
         echo "org_name from previous steps now in construct variable: ${{ steps.create.outputs.org_name }}"
-        echo "echo app_id_var_name=${{ steps.create.outputs.org_name }}_app_id" >> "$GITHUB_OUTPUT"
-        echo "echo app_name_var_name=${{ steps.create.outputs.org_name }}_app_name" >> "$GITHUB_OUTPUT"
-        echo "echo pem_key_secret_name=${{ steps.create.outputs.org_name }}_pem_key" >> "$GITHUB_OUTPUT"
+        echo "app_id_var_name=${{ steps.create.outputs.org_name }}_app_id" >> "$GITHUB_OUTPUT"
+        echo "app_name_var_name=${{ steps.create.outputs.org_name }}_app_name" >> "$GITHUB_OUTPUT"
+        echo "pem_key_secret_name=${{ steps.create.outputs.org_name }}_pem_key" >> "$GITHUB_OUTPUT"
 
 
   create-variables:
