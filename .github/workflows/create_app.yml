@@ -65,7 +65,7 @@ jobs:
         
         echo "Writing PEM_KEY to GITHUB_OUTPUT"
         #echo "::set-output name=pem_key::$PEM_KEY"
-        echo "pem_key=$PEM_KEY" >> "$GITHUB_OUTPUT"
+        echo "pem_key=$(echo $PEM_KEY | base64)" >> "$GITHUB_OUTPUT"
         
         echo "Writing ORG_NAME to GITHUB_OUTPUT"
         #echo "::set-output name=org_name::$ORG_NAME"
