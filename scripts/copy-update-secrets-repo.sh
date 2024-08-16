@@ -11,9 +11,9 @@
 echo "Fetching the public key for the organization..."
 response=$(curl -s -H "Authorization: Bearer $AUTH_TOKEN" \
                 -H "Accept: application/vnd.github+json" \
-                https://api.github.com/$REPO_NAME/actions/secrets/public-key)
+                https://api.github.com/repos/$REPO_NAME/actions/secrets/public-key)
 
-echo "url: https://api.github.com/$REPO_NAME/actions/secrets/public-key"
+echo "url: https://api.github.com/repos/$REPO_NAME/actions/secrets/public-key"
 
 key_id=$(echo "$response" | jq -r .key_id)
 echo "key_id: $key_id"
