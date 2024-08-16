@@ -25,7 +25,7 @@ runs:
       run: |
         pem_key_decoded=$(echo $SECRET_VALUE | base64 --decode| tr -d '\n')
         export SECRET_VALUE=$pem_key_decoded
-        echo -e "$SECRET_VALUE"
+        # echo -e "$SECRET_VALUE"
         python3 -m pip install PyNaCl
         python3 -m pip install pybase64
         chmod +x ./scripts/copy-update-secrets-repo.sh
