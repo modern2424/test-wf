@@ -13,7 +13,10 @@ response=$(curl -s -H "Authorization: Bearer $AUTH_TOKEN" \
                 -H "Accept: application/vnd.github+json" \
                 https://api.github.com/$ORG_NAME/$REPO_NAME/actions/secrets/public-key)
 
+echo "url: https://api.github.com/$ORG_NAME/$REPO_NAME/actions/secrets/public-key"
+
 key_id=$(echo "$response" | jq -r .key_id)
+echo "key_id: $key_id"
 public_key=$(echo "$response" | jq -r .key)
 
 if [ -z "$key_id" ] || [ -z "$public_key" ]; then
