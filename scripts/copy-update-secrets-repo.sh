@@ -52,7 +52,7 @@ echo "Creating or updating the repository secret..."
 update_response=$(curl -s -X PUT -H "Authorization: Bearer $AUTH_TOKEN" \
                      -H "Accept: application/vnd.github+json" \
                      -d "{\"encrypted_value\":\"$encrypted_value\", \"key_id\":\"$key_id\", \"visibility\":\"private\"}" \
-                     https://api.github.com/$ORG_NAME/$REPO_NAME/actions/secrets/$SECRET_NAME)
+                     https://api.github.com/repos/$REPO_NAME/actions/secrets/$SECRET_NAME)
 
 #if echo "$update_response" | grep -q '"created_at"'; then
 if [[ "$update_response" == "201" || "$update_response" == "204" ]]; then
