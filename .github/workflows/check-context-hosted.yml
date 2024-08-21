@@ -1,0 +1,23 @@
+name: Show Contexts Self Hosted
+
+on:
+  workflow_dispatch
+
+jobs:
+  Show-Listed-Contexts:
+    runs-on: arc-runner-set
+    steps:
+    - name: Github Context
+      run: echo '${{ toJSON(github) }}'
+
+    - name: Github Context
+      run: echo '${{ toJSON(job) }}'
+
+    - name: Github Context
+      run: echo '${{ toJSON(steps) }}'
+
+    - name: Github Context
+      run: echo '${{ toJSON(runner) }}'
+
+    - name: Github Context
+      run: echo '${{ toJSON(secrets) }}'
