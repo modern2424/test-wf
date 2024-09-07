@@ -19,11 +19,12 @@ os.makedirs(BASE_DIR, exist_ok=True)
 BUFFER_SECONDS = 2
 
 # Fetch audit logs from GitHub API
-def fetch_audit_logs(before_timestamp, per_page=100):
+def fetch_audit_logs(before_timestamp, page=1, per_page=100):
     params = {
         "phrase": f"created:<{before_timestamp}",
         "order": "desc",
-        "per_page": per_page
+        "per_page": per_page,
+        "page": page
     }
     
     response = requests.get(BASE_URL, headers=HEADERS, params=params)
@@ -52,28 +53,29 @@ def fetch_logs_until_end_date(start_date, end_date):
     
     while True:
         print(f"Fetching logs before {current_timestamp}...")
+        page = 1
+        fetched_any_logs = False
         
-        logs, last_timestamp = fetch_audit_logs(current_timestamp)
-        
-        if logs:
-            # Save logs
-            file_name = f"log-{count}.json"
-            save_logs(logs, file_name)
-            count += 1
+        while True:
+            logs, last_timestamp = fetch_audit_logs(current_timestamp, page)
             
-            # Use the last log's timestamp + buffer for next fetch
-            if last_timestamp:
-                last_datetime = datetime.datetime.strptime(last_timestamp, '%Y-%m-%dT%H:%M:%SZ')
-                current_timestamp = (last_datetime - datetime.timedelta(seconds=BUFFER_SECONDS)).strftime('%Y-%m-%dT%H:%M:%SZ')
-        
-        else:
-            # No logs returned; add buffer and try again
-            if last_timestamp:
-                last_datetime = datetime.datetime.strptime(last_timestamp, '%Y-%m-%dT%H:%M:%SZ')
-                current_timestamp = (last_datetime - datetime.timedelta(seconds=BUFFER_SECONDS)).strftime('%Y-%m-%dT%H:%M:%SZ')
+            if logs:
+                # Save logs
+                file_name = f"log-{count}.json"
+                save_logs(logs, file_name)
+                count += 1
+                fetched_any_logs = True
+                page += 1
             else:
-                # If no logs were returned and no last timestamp, stop
                 break
+        
+        if not fetched_any_logs:
+            print("No more logs to fetch.")
+            break
+        
+        if last_timestamp:
+            last_datetime = datetime.datetime.strptime(last_timestamp, '%Y-%m-%dT%H:%M:%SZ')
+            current_timestamp = (last_datetime - datetime.timedelta(seconds=BUFFER_SECONDS)).strftime('%Y-%m-%dT%H:%M:%SZ')
         
         last_datetime = datetime.datetime.strptime(current_timestamp, '%Y-%m-%dT%H:%M:%SZ')
         if last_datetime <= end_date:
